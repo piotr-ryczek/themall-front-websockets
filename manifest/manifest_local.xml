@@ -1,0 +1,9 @@
+<WebApplicationInfo>
+  <Id>a3379810-081d-4758-89f1-f0b4feebba43</Id>
+  <Resource>api://localhost:3000/a3379810-081d-4758-89f1-f0b4feebba43</Resource>
+  <Scopes>
+      <Scope>Files.Read</Scope>
+      <Scope>profile</Scope>
+      <Scope>openid</Scope>
+  </Scopes>
+</WebApplicationInfo>
