@@ -72,7 +72,7 @@ function Chats() {
   };
 
   const handleSaveJwtToken = () => {
-    const newSocket = socketIOClient("ws://localhost:3181/rooms", {
+    const newSocket = socketIOClient("ws://localhost:3180/chats", {
       // 3180/chats
       transportOptions: {
         polling: {
@@ -144,7 +144,7 @@ function Chats() {
         placeholder="Message"
       />
       <button type="button" onClick={sendMessage}>
-        Wysylaj
+        Wyślij
       </button>
     </>
   );

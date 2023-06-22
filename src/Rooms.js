@@ -5,23 +5,12 @@ import socketIOClient from "socket.io-client";
 
 const baseUrl = "http://localhost:3110/api/v1";
 
-// export enum RoomsGatewayEventEnum {
-//   NEW_GUEST_INVITATION_REQUEST = 'NEW_GUEST_INVITATION_REQUEST', // Guest is requesting to join Private Room Experience
-//   GUEST_INVITATION_REQUEST_REJECTED = 'GUEST_INVITATION_REQUEST_REJECTED',
-//   GUEST_INVITATION_REQUEST_ACCEPTED = 'GUEST_INVITATION_REQUEST_ACCEPTED',
-//   USER_LEFT_ROOM = 'USER_LEFT_ROOM',
-//   USER_REMOVED_FROM_ROOM = 'USER_REMOVED_FROM_ROOM',
-//   USER_ADDED_TO_ROOM = 'USER_ADDED_TO_ROOM',
-// }
-
 function Rooms() {
   const [roomId, setRoomId] = useState("648b064f77a4eb008a51357d");
   const [secondRoomId, setSecondRoomId] = useState("648b064f77a4eb008a51357d");
   const [waitingListId, setWaitingListId] = useState("");
   const [name, setName] = useState("Piotr");
   const [invitationCode, setInvitationCode] = useState("");
-  // const [value, setValue] = useState("");
-  // const [chatId, setChatId] = useState("");
   const [jwtToken, setJwtToken] = useState("");
 
   const [socket, setSocket] = useState(null);
