@@ -3,6 +3,8 @@ import { decodeToken } from "react-jwt";
 import * as Colyseus from "colyseus.js";
 import socketIOClient from "socket.io-client";
 
+const baseUrl = "http://localhost:3110/api/v1";
+
 // ALSO EXPERIENCES!
 function Multiplayer() {
   const [jwtToken, setJwtToken] = useState("");
@@ -30,23 +32,23 @@ function Multiplayer() {
     console.log("Experiences: Connected");
 
     socket.on("connect_error", (error) => {
-      console.error("connect_error", error);
+      console.error("EXPERIENCES", "connect_error", error);
     });
 
     socket.on("connect_error", (error) => {
-      console.warn("Error", error);
+      console.warn("EXPERIENCES", "Error", error);
     });
 
     socket.on("disconnect", () => {
-      console.warn("Disconnected");
+      console.warn("EXPERIENCES", "Disconnected");
     });
 
     socket.on("DAILY_ROOM_CREATED", (data) => {
-      console.log("DAILY_ROOM_CREATED", data);
+      console.log("EXPERIENCES", "DAILY_ROOM_CREATED", data);
     });
 
     socket.on("DAILY_ROOM_REMOVED", (data) => {
-      console.log("DAILY_ROOM_REMOVED", data);
+      console.log("EXPERIENCES", "DAILY_ROOM_REMOVED", data);
     });
   }, [socket]);
 
@@ -55,23 +57,27 @@ function Multiplayer() {
     if (!room) return;
 
     room.onMessage("USER_JOINED_ROOM", (data) => {
-      console.log("USER_JOINED_ROOM", data);
+      console.log("MULTIPLAYER", "USER_JOINED_ROOM", data);
     });
 
     room.onMessage("GUEST_JOINED_ROOM", (data) => {
-      console.log("GUEST_JOINED_ROOM", data);
+      console.log("MULTIPLAYER", "GUEST_JOINED_ROOM", data);
     });
 
     room.onMessage("CHAT_MESSAGE", (data) => {
-      console.log("CHAT_MESSAGE", data);
+      console.log("MULTIPLAYER", "CHAT_MESSAGE", data);
     });
 
     room.onMessage("USER_LEFT_ROOM", (data) => {
-      console.log("USER_LEFT_ROOM", data);
+      console.log("MULTIPLAYER", "USER_LEFT_ROOM", data);
     });
 
     room.onMessage("GUEST_LEFT_ROOM", (data) => {
-      console.log("GUEST_LEFT_ROOM", data);
+      console.log("MULTIPLAYER", "GUEST_LEFT_ROOM", data);
+    });
+
+    room.onLeave((data) => {
+      console.log("MULTIPLAYER", "onLeave", data);
     });
   }, [room]);
 
@@ -124,7 +130,7 @@ function Multiplayer() {
 
   const handleSetToken1 = () => {
     setJwtToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDkzMGZhYWNjNDUwZGFjOTNjM2JkYTkiLCJ1c2VyVHlwZSI6IkVNQUlMIiwiaXNWZXJpZmllZCI6dHJ1ZSwiaWF0IjoxNjg3MzU5NDI0LCJleHAiOjE2ODc5NjQyMjR9._pT-ULSBA2GmRPDQeFQxNZ_tN7zK4BQnU80KPWfXidM"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDkzMGZhYWNjNDUwZGFjOTNjM2JkYTkiLCJ1c2VyVHlwZSI6IkVNQUlMIiwiaXNWZXJpZmllZCI6dHJ1ZSwiaWF0IjoxNjg3NzEwMTc5LCJleHAiOjE2ODgzMTQ5Nzl9.-31BisUKiB2J9_8bidoLqSwzeqmmU0c9DayfGlZamYU"
     );
   };
 
@@ -143,11 +149,18 @@ function Multiplayer() {
       const room = await client.joinById(roomId, {
         participantType: participantType,
         participantId: participantId,
+        jwtToken,
       });
 
       setRoom(room);
     } catch (error) {
-      console.error("Join Error", error);
+      console.error(error);
+      const { message } = error;
+
+      if (message === `room "${roomId}" not found`) {
+      }
+
+      // console.error("Join Error", error);
     }
   };
 
