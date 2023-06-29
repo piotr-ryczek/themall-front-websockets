@@ -6,7 +6,7 @@ import socketIOClient from "socket.io-client";
 const baseUrl = "http://localhost:3110/api/v1";
 
 // ALSO EXPERIENCES!
-function Multiplayer() {
+function MultiplayerPrivateRoom() {
   const [jwtToken, setJwtToken] = useState("");
   const [roomId, setRoomId] = useState("");
   const [message, setMessage] = useState("");
@@ -241,4 +241,4 @@ function Multiplayer() {
   );
 }
 
-export default Multiplayer;
+export default MultiplayerPrivateRoom;
